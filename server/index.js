@@ -14,7 +14,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000", // React 클라이언트 주소 (개발 모드용)
+    origin: process.env.FRONTEND_URL || "http://localhost:3000", // 배포 환경에서는 FRONTEND_URL 사용, 로컬 개발 시 폴백
     methods: ["GET", "POST"]
   }
 });
