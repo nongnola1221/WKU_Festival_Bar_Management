@@ -98,14 +98,17 @@ setInterval(() => {
 
     // 관리자 페이지 알림 로직
     if (remainingMinutes <= 10 && !table.notifications.min10) {
+      console.log(`[알림] ${table.tableNumber}번 테이블 이용시간 10분 남음`);
       io.emit('adminAlarm', { tableId: table.id, tableNumber: table.tableNumber, message: `${table.tableNumber}번 테이블 이용시간 10분 남음` });
       table.notifications.min10 = true;
     }
     if (remainingMinutes <= 5 && !table.notifications.min5) {
+      console.log(`[알림] ${table.tableNumber}번 테이블 이용시간 5분 남음`);
       io.emit('adminAlarm', { tableId: table.id, tableNumber: table.tableNumber, message: `${table.tableNumber}번 테이블 이용시간 5분 남음` });
       table.notifications.min5 = true;
     }
     if (remainingTime <= 0 && !table.notifications.min0) {
+      console.log(`[알림] ${table.tableNumber}번 테이블 이용시간 끝남`);
       io.emit('adminAlarm', { tableId: table.id, tableNumber: table.tableNumber, message: `${table.tableNumber}번 테이블 이용시간 끝남` });
       table.notifications.min0 = true;
     }
