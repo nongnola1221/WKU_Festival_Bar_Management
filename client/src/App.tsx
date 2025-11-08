@@ -84,6 +84,9 @@ function App() {
         <p style={{ color: isConnected ? '#28a745' : 'var(--danger-color)', fontWeight: 500 }}>
           {isConnected ? '● 실시간 연결 중' : '○ 연결 끊김'}
         </p>
+        <p style={{ fontSize: '0.8rem', color: '#888' }}>
+          백엔드 URL: {process.env.REACT_APP_BACKEND_URL || '설정되지 않음'}
+        </p>
       </header>
       <main className="card">
         {renderContent()}
