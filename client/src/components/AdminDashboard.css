@@ -1,0 +1,35 @@
+.table-container {
+    width: 100%;
+    overflow-x: auto; /* 화면이 좁을 때 가로 스크롤을 허용합니다 */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.5rem;
+    font-size: 0.95rem;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+}
+
+thead tr {
+    background-color: var(--secondary-color);
+}
+
+th {
+    font-weight: 600;
+    color: #333;
+}
+
+tbody tr:last-of-type td {
+    border-bottom: none;
+}
+
+/* 홀수번째 행에 미세한 배경색을 주어 가독성을 높입니다 */
+tbody tr:nth-of-type(odd) {
+    background-color: #f9f9f9;
+}
