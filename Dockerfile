@@ -1,6 +1,11 @@
 # Node.js 20 버전의 경량 이미지를 베이스로 사용
 FROM node:20-slim
 
+# Railway에서 주입될 환경 변수를 빌드 아규먼트로 받음
+ARG REACT_APP_BACKEND_URL
+# 빌드 시점에 환경 변수로 설정하여 클라이언트 빌드에 주입되도록 함
+ENV REACT_APP_BACKEND_URL=$REACT_APP_BACKEND_URL
+
 # 컨테이너 내부의 작업 디렉토리 설정
 WORKDIR /app
 
