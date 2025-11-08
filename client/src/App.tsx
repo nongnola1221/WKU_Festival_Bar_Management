@@ -84,10 +84,6 @@ function App() {
         <p style={{ color: isConnected ? '#28a745' : 'var(--danger-color)', fontWeight: 500 }}>
           {isConnected ? '● 실시간 연결 중' : '○ 연결 끊김'}
         </p>
-        <nav>
-          <a href="/" style={{ marginRight: '1rem' }}>손님</a>
-          <a href="/#admin">관리자</a>
-        </nav>
       </header>
       <main className="card">
         {renderContent()}
