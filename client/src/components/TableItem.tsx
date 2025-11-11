@@ -43,7 +43,9 @@ const TableItem = ({ table, onEdit }: Props) => {
   if (remainingTime < 0) {
     rowBackgroundColor = '#ff000015'; // 빨간색 (0분 미만)
   } else if (remainingTime < 5 * 60 * 1000) {
-    rowBackgroundColor = '#ffc10715'; // 주황색 (5분 미만)
+    rowBackgroundColor = '#ff6a0715'; // 주황색 (5분 미만)
+  } else if (remainingTime < 10 * 60 * 1000) {
+    rowBackgroundColor = '#fff30715'; // 노란색 (10분 미만)
   }
 
   return (
