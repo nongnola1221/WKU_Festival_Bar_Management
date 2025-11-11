@@ -28,10 +28,30 @@ th {
 .sortable {
     cursor: pointer;
     transition: background-color 0.2s ease;
+    display: flex; /* 텍스트와 아이콘을 한 줄에 표시 */
+    align-items: center; /* 세로 중앙 정렬 */
+    justify-content: center; /* 가로 중앙 정렬 */
 }
 
 .sortable:hover {
     background-color: #e9ecef;
+}
+
+.alarm-banner {
+  background-color: #dc3545; /* 빨간색 배경 */
+  color: white; /* 흰색 텍스트 */
+  padding: 1rem;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+  animation: fadeOut 5s forwards; /* 5초 후 사라지는 애니메이션 */
+}
+
+@keyframes fadeOut {
+  0% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { opacity: 0; display: none; }
 }
 
 tbody tr:last-of-type td {
