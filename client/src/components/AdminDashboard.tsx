@@ -123,6 +123,7 @@ const AdminDashboard = ({ tables }: Props) => {
               <th>전화번호</th>
               <th>인원</th>
               <th>남은 시간</th>
+              <th>시간 테스트</th>
               <th>관리</th>
             </tr>
           </thead>
@@ -131,7 +132,7 @@ const AdminDashboard = ({ tables }: Props) => {
               tables.map(table => <TableItem key={table.id} table={table} onEdit={handleEdit} />)
             ) : (
               <tr>
-                <td colSpan={6} style={{ textAlign: 'center', padding: '3rem 0' }}>
+                <td colSpan={7} style={{ textAlign: 'center', padding: '3rem 0' }}>
                   아직 등록된 테이블이 없습니다.
                 </td>
               </tr>
