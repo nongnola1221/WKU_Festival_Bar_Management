@@ -63,9 +63,18 @@ interface Props {
   tables: Table[];
 }
 
+type SortKey = 'tableNumber' | 'remainingTime';
+type SortDirection = 'ascending' | 'descending';
+
+interface SortConfig {
+  key: SortKey;
+  direction: SortDirection;
+}
+
 const AdminDashboard = ({ tables }: Props) => {
   const [alarmMessage, setAlarmMessage] = useState<string | null>(null);
   const [editingTable, setEditingTable] = useState<Table | null>(null);
+  const [sortConfig, setSortConfig] = useState<SortConfig>({ key: 'remainingTime', direction: 'ascending' });
 
   useEffect(() => {
     if (!("Notification" in window)) {
@@ -91,6 +100,48 @@ const AdminDashboard = ({ tables }: Props) => {
       socket.off('adminAlarm', handleAdminAlarm);
     };
   }, []);
+
+  const sortedTables = useMemo(() => {
+    let sortableItems = [...tables];
+    if (sortConfig !== null) {
+      sortableItems.sort((a, b) => {
+        let aValue: number;
+        let bValue: number;
+
+        if (sortConfig.key === 'tableNumber') {
+          aValue = parseInt(a.tableNumber);
+          bValue = parseInt(b.tableNumber);
+        } else { // remainingTime
+          aValue = a.remainingTime ?? (a.endTime - Date.now());
+          bValue = b.remainingTime ?? (b.endTime - Date.now());
+        }
+        
+        if (aValue < bValue) {
+          return sortConfig.direction === 'ascending' ? -1 : 1;
+        }
+        if (aValue > bValue) {
+          return sortConfig.direction === 'ascending' ? 1 : -1;
+        }
+        return 0;
+      });
+    }
+    return sortableItems;
+  }, [tables, sortConfig]);
+
+  const requestSort = (key: SortKey) => {
+    let direction: SortDirection = 'ascending';
+    if (sortConfig.key === key && sortConfig.direction === 'ascending') {
+      direction = 'descending';
+    }
+    setSortConfig({ key, direction });
+  };
+
+  const getSortIndicator = (key: SortKey) => {
+    if (sortConfig.key !== key) {
+      return null;
+    }
+    return sortConfig.direction === 'ascending' ? ' ▲' : ' ▼';
+  };
 
   const handleEdit = (table: Table) => {
     setEditingTable(table);
@@ -118,18 +169,22 @@ const AdminDashboard = ({ tables }: Props) => {
         <table>
           <thead>
             <tr>
-              <th>테이블</th>
+              <th onClick={() => requestSort('tableNumber')} className="sortable">
+                테이블{getSortIndicator('tableNumber')}
+              </th>
               <th>대표자</th>
               <th>전화번호</th>
               <th>인원</th>
-              <th>남은 시간</th>
+              <th onClick={() => requestSort('remainingTime')} className="sortable">
+                남은 시간{getSortIndicator('remainingTime')}
+              </th>
               <th>시간 테스트</th>
               <th>관리</th>
             </tr>
           </thead>
           <tbody>
-            {tables.length > 0 ? (
-              tables.map(table => <TableItem key={table.id} table={table} onEdit={handleEdit} />)
+            {sortedTables.length > 0 ? (
+              sortedTables.map(table => <TableItem key={table.id} table={table} onEdit={handleEdit} />)
             ) : (
               <tr>
                 <td colSpan={7} style={{ textAlign: 'center', padding: '3rem 0' }}>

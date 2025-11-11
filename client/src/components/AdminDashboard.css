@@ -25,6 +25,15 @@ th {
     color: #333;
 }
 
+.sortable {
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.sortable:hover {
+    background-color: #e9ecef;
+}
+
 tbody tr:last-of-type td {
     border-bottom: none;
 }
