@@ -41,11 +41,11 @@ const TableItem = ({ table, onEdit }: Props) => {
 
   let rowBackgroundColor = 'transparent';
   if (remainingTime < 0) {
-    rowBackgroundColor = '#ff000015'; // 빨간색 (0분 미만)
+    rowBackgroundColor = 'rgba(255, 0, 0, 0.30)'; // 빨간색 (0분 미만)
   } else if (remainingTime < 5 * 60 * 1000) {
-    rowBackgroundColor = '#ff6a0715'; // 주황색 (5분 미만)
-  } else if (remainingTime < 10 * 60 * 1000) {
-    rowBackgroundColor = '#fff30715'; // 노란색 (10분 미만)
+    rowBackgroundColor = 'rgba(255, 102, 0, 0.3)'; // 주황색 (5분 미만)
+  } else if (remainingTime < 30 * 60 * 1000) {
+    rowBackgroundColor = 'rgba(255, 243, 5, 0.3)'; // 노란색 (30분 미만)
   }
 
   return (
