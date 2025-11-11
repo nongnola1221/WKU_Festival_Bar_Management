@@ -43,14 +43,18 @@ th {
   padding: 1rem;
   text-align: center;
   font-weight: bold;
-  margin-bottom: 1rem;
   border-radius: 4px;
-  animation: fadeOut 5s forwards; /* 5초 후 사라지는 애니메이션 */
+  position: fixed; /* 화면 상단 중앙에 고정 */
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000; /* 다른 요소 위에 표시 */
+  animation: fadeOut 4s forwards; /* 3초 표시 후 1초 페이드 아웃 (총 4초) */
 }
 
 @keyframes fadeOut {
   0% { opacity: 1; }
-  80% { opacity: 1; }
+  75% { opacity: 1; } /* 3초 동안 유지 (4초의 75%) */
   100% { opacity: 0; display: none; }
 }
 

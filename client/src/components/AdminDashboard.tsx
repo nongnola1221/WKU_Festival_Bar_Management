@@ -91,7 +91,7 @@ const AdminDashboard = ({ tables }: Props) => {
       if (Notification.permission === "granted") {
         new Notification("원광대학교 사회대 주점 알리미", { body: data.message, icon: '/favicon.ico' });
       }
-      const timer = setTimeout(() => setAlarmMessage(null), 5000);
+      const timer = setTimeout(() => setAlarmMessage(null), 3000);
       return () => clearTimeout(timer);
     };
 
