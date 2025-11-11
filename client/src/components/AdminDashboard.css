@@ -82,6 +82,16 @@ tbody tr:nth-of-type(odd) {
     box-sizing: border-box;
 }
 
+/* Hide spinner from number input */
+.modal .form-group input[type=number]::-webkit-inner-spin-button, 
+.modal .form-group input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+.modal .form-group input[type=number] {
+  -moz-appearance: textfield;
+}
+
 .modal-actions {
     margin-top: 2rem;
     display: flex;
