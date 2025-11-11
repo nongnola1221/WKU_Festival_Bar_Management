@@ -127,17 +127,6 @@ io.on('connection', (socket) => {
     }
   });
 
-  socket.on('test_updateTime', ({ tableId, minutes }) => {
-    const table = tables.find(t => t.id === tableId);
-    if (table) {
-      table.endTime = Date.now() + minutes * 60 * 1000;
-      // Reset notifications so they can be re-triggered
-      table.notifications = { min10: false, min5: false, min0: false };
-      saveData();
-      io.emit('updateTables', tables);
-    }
-  });
-
   socket.on('disconnect', () => {
     console.log('사용자 연결 끊김:', socket.id);
   });

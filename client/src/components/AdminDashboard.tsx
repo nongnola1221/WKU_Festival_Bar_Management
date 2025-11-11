@@ -178,7 +178,6 @@ const AdminDashboard = ({ tables }: Props) => {
               <th onClick={() => requestSort('remainingTime')} className="sortable">
                 남은 시간{getSortIndicator('remainingTime')}
               </th>
-              <th>시간 테스트</th>
               <th>관리</th>
             </tr>
           </thead>
@@ -187,7 +186,7 @@ const AdminDashboard = ({ tables }: Props) => {
               sortedTables.map(table => <TableItem key={table.id} table={table} onEdit={handleEdit} />)
             ) : (
               <tr>
-                <td colSpan={7} style={{ textAlign: 'center', padding: '3rem 0' }}>
+                <td colSpan={6} style={{ textAlign: 'center', padding: '3rem 0' }}>
                   아직 등록된 테이블이 없습니다.
                 </td>
               </tr>
