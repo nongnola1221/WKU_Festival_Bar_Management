@@ -50,8 +50,8 @@ const EditModal = ({ table, onClose, onSave }: EditModalProps) => {
           <input name="partySize" type="number" value={formData.partySize} onChange={handleChange} />
         </div>
         <div className="modal-actions">
-          <button onClick={handleSave}>저장</button>
           <button onClick={onClose} className="danger">취소</button>
+          <button onClick={handleSave}>저장</button>
         </div>
       </div>
     </div>
