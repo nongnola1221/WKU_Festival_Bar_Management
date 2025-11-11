@@ -39,6 +39,15 @@ const TimerPage = ({ tables }: Props) => {
       <div style={{ fontSize: '3.5rem', fontWeight: 'bold', color: isExpired ? 'var(--danger-color)' : 'var(--primary-color)', margin: '1rem 0 2rem 0' }}>
         {formatTime(remainingTime)}
       </div>
+      <div style={{
+        backgroundColor: 'rgba(0,0,0,0.05)',
+        padding: '1.5rem',
+        borderRadius: 'var(--border-radius)',
+        margin: '2rem 0'
+      }}>
+        <p style={{margin: '0 0 0.5rem 0', fontWeight: 500, color: '#333'}}>시간을 계속 확인 하고 싶으시면 창을 닫지 말아주세요!</p>
+        <p style={{margin: 0, fontSize: '0.9rem', color: '#555'}}>다른 창을 사용하고 싶으시면 새로운 탭에서 열어주세요!<br/>(아니면 링크를 복사해서 다른 브라우저에 붙여넣어도 좋아요)</p>
+      </div>
       <p style={{fontSize: '0.9rem', color: '#555'}}>이용 시간이 종료되면 다음 손님을 위해 자리를 비워주세요.</p>
     </div>
   );

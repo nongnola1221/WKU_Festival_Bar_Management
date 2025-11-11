@@ -4,9 +4,10 @@ import { Table } from '../App';
 
 interface Props {
   table: Table;
+  onEdit: (table: Table) => void;
 }
 
-const TableItem = ({ table }: Props) => {
+const TableItem = ({ table, onEdit }: Props) => {
   // remainingTime은 이제 상위 컴포넌트에서 table 객체의 일부로 전달받습니다.
   const remainingTime = table.remainingTime ?? (table.endTime - Date.now());
 
@@ -21,22 +22,6 @@ const TableItem = ({ table }: Props) => {
     
     const timeString = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
     return isNegative ? `-${timeString}` : timeString;
-  };
-
-  const handleManageTime = () => {
-    const minutesInput = prompt('추가하거나 뺄 시간을 분 단위로 입력하세요 (예: 10 또는 -5):', '0');
-    if (minutesInput !== null) { // 사용자가 취소를 누르지 않았을 때만 처리
-        const minutes = parseInt(minutesInput);
-        if (!isNaN(minutes) && minutes !== 0) {
-            if (minutes > 0) {
-                socket.emit('addTime', { tableId: table.id, minutes });
-            } else {
-                socket.emit('subtractTime', { tableId: table.id, minutes: Math.abs(minutes) });
-            }
-        } else if (minutesInput !== '0') { // 입력이 숫자가 아니거나 0인데 0이 아닌 문자열인 경우
-            alert('유효한 분 단위 숫자를 입력해주세요.');
-        }
-    }
   };
 
   const handleDelete = () => {
@@ -57,7 +42,7 @@ const TableItem = ({ table }: Props) => {
         {formatTime(remainingTime)}
       </td>
       <td>
-        <button onClick={handleManageTime} style={{width: 'auto', marginRight: '8px', fontSize: '0.8rem', padding: '6px 10px'}}>시간 관리</button>
+        <button onClick={() => onEdit(table)} style={{width: 'auto', marginRight: '8px', fontSize: '0.8rem', padding: '6px 10px'}}>수정</button>
         <button onClick={handleDelete} className="danger" style={{width: 'auto', fontSize: '0.8rem', padding: '6px 10px'}}>삭제</button>
       </td>
     </tr>

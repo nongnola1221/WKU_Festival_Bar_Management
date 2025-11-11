@@ -18,10 +18,17 @@ const UserForm = () => {
       navigate(`/timer/${newTable.id}`);
     };
 
+    const onRegistrationError = (message: string) => {
+      alert(message);
+      setIsSubmitting(false);
+    };
+
     socket.on('registrationSuccess', onRegisterSuccess);
+    socket.on('registrationError', onRegistrationError);
 
     return () => {
       socket.off('registrationSuccess', onRegisterSuccess);
+      socket.off('registrationError', onRegistrationError);
     };
   }, [navigate]);
 

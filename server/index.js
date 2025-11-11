@@ -31,6 +31,18 @@ io.on('connection', (socket) => {
 
   // 손님 테이블 등록 처리
   socket.on('registerTable', (data) => {
+    // 테이블 번호 중복 확인
+    const tableExists = tables.some(table => table.tableNumber === data.tableNumber);
+    if (tableExists) {
+      return socket.emit('registrationError', '이미 사람이 있는 테이블입니다! (사람이 없다면 학생회에게 문의해주세요!)');
+    }
+
+    // 이름과 전화번호 중복 확인
+    const userExists = tables.some(table => table.name === data.name && table.phone === data.phone);
+    if (userExists) {
+      return socket.emit('registrationError', '이미 사용 중인 손님입니다! (아니라면 학생회에게 문의해주세요!)');
+    }
+
     const now = Date.now();
     const newTable = {
       id: Date.now().toString(36) + Math.random().toString(36).substring(2), // 호환성 높은 고유 ID 생성
@@ -73,6 +85,22 @@ io.on('connection', (socket) => {
       table.endTime -= minutes * 60 * 1000;
       // 시간 변경 시 알림 플래그 초기화 (다시 알림이 가도록)
       table.notifications = { min10: false, min5: false, min0: false };
+      io.emit('updateTables', tables);
+    }
+  });
+
+  // 테이블 정보 수정 처리
+  socket.on('updateTable', (updatedTable) => {
+    const tableIndex = tables.findIndex(t => t.id === updatedTable.id);
+    if (tableIndex !== -1) {
+      // 기존 테이블의 시간 관련 정보는 유지하면서 다른 정보들을 업데이트합니다.
+      tables[tableIndex] = {
+        ...tables[tableIndex],
+        tableNumber: updatedTable.tableNumber,
+        name: updatedTable.name,
+        phone: updatedTable.phone,
+        partySize: updatedTable.partySize,
+      };
       io.emit('updateTables', tables);
     }
   });
